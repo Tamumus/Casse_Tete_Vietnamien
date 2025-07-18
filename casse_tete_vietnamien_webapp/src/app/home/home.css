@@ -1,0 +1,39 @@
+.texte_rouge {
+  color: red;
+}
+
+/* .image-centree {
+  position: absolute;
+  top: 33.33%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+*/
+
+.tile_container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.input_background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.input_par_dessus {
+  position: relative;
+  z-index: 0;
+  background: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  padding: 10;
+  color: rgb(0, 0, 0);
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
