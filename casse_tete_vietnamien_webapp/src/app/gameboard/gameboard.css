@@ -1,0 +1,13 @@
+/* All this CSS
+Probably a good idea to make all those pixels sizes a var depending on the screen res */
+.board{
+  position: relative;
+  width: 1600px;
+  height: 1000px;
+}
+
+.tile {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}

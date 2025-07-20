@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 //import { RouterOutlet } from '@angular/router';
-import {Home} from './home/home';
+import { Gameboard } from './gameboard/gameboard';
 
 @Component({
   selector: 'app-root',
-  imports: [Home],
+  imports: [Gameboard],
   template: `
     <main>
       <header class="brand-name">
       </header>
       <section class="content">
-        <app-home></app-home>
+        <app-gameboard></app-gameboard>
       </section>
     </main>
   `,
