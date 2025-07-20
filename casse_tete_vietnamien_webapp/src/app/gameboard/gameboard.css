@@ -1,4 +1,4 @@
-/* All this CSS
+/* 
 Probably a good idea to make all those pixels sizes a var depending on the screen res */
 .board{
   position: relative;
@@ -8,6 +8,6 @@ Probably a good idea to make all those pixels sizes a var depending on the scree
 
 .tile {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
 }
