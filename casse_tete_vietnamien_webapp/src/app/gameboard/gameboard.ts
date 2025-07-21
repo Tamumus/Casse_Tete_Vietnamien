@@ -4,12 +4,6 @@ import { getScreenResolution, getViewportSize, ScreenSize} from '../helpers/get_
 
 //we want get viewportsize out of those (browser area we play with)
 
-interface ImageData {
-  src: string;
-  x: number;
-  y: number;
-}
-
 @Component({
   selector: 'app-gameboard',
   imports: [CommonModule],
@@ -107,16 +101,16 @@ export class Gameboard implements OnInit
         y = 5 * spacing;
       this.images.push({src: 'Black_square.jpg' ,x,y, draggable:false});
     
-    //We draw the stickers
-    i = 0;
-    y = 0;
-    x = spacing * 9;
-    while (i < 9)
-    {
-      //src: `sticker{i + 1}.png'
-      this.images.push({src: 'Black_square.jpg' ,x,y, draggable:false});
-      i++;
-      y = y + spacing;
-    }
+    // //We draw the stickers
+    // i = 0;
+    // y = 0;
+    // x = spacing * 9;
+    // while (i < 9)
+    // {
+    //   //src: `sticker{i + 1}.png'
+    //   this.images.push({src: 'Black_square.jpg' ,x,y, draggable:false});
+    //   i++;
+    //   y = y + spacing;
+    // }
   }
 }
