@@ -5,6 +5,16 @@
         class="sticker"
         [style.left.px]="sticker.x"
         [style.top.px]="sticker.y"
-        [draggable]=true
+        (mousedown)="startDrag($event, sticker)">
+        [draggable]=false
   />
+</div>
+
+<div 
+  *ngFor="let zone of zones"
+  class="zone"
+  [style.left.px]="zone.x"
+  [style.top.px]="zone.y"
+  [style.width.px]="zone.width"
+  [style.height.px]="zone.height">
 </div>
