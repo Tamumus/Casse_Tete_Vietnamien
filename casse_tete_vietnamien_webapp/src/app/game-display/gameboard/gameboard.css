@@ -1,0 +1,56 @@
+/* All we need to make the tiles*/
+
+/*what contains the tile image + the label (value as a number or math sign)*/
+.tile-wrapper {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+/*Those classes are used for images, we use the different subclasses as needed*/
+.tile-image {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.tile-image-white {
+  border: 8px solid whitesmoke;
+}
+.tile-image-black {
+  border: 8px solid rgb(0, 0, 0);
+}
+
+/*Those classes are used for labels (what's written on the tiles), we use the different subclasses as needed*/
+.tile-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Caveat', cursive;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/*sizes*/
+.label-small {
+  font-size: 32px;
+}
+
+.label-large {
+  font-size: 96px;
+}
+
+/*Color*/
+.label-black {
+  color: rgb(0, 0, 0);
+}
+
+.label-white {
+  color: rgb(255, 255, 255);
+}
+
+.label-red{
+  color: red;
+}

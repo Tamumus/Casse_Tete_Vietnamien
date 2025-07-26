@@ -1,0 +1,19 @@
+
+
+<div class="sticker-container">
+  <div
+    *ngFor="let sticker of stickers"
+    class="sticker"
+    [class.active]="selectedSticker?.id === sticker.id"
+    [id]="sticker.id"
+    [style.left.px]="sticker.x"
+    [style.top.px]="sticker.y"
+    [style.width.px]="100 * scaleFactor"
+    [style.height.px]="100 * scaleFactor"
+    [style.zIndex]="sticker.zIndex || 1"
+    (mousedown)="startDrag($event, sticker)"
+  >
+    <img [src]="sticker.src" draggable="false" style="width: 100%; height: 100%;" />
+    <div class="sticker-value">{{ sticker.value }}</div>
+  </div>
+</div>

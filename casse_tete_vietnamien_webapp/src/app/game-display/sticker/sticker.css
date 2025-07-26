@@ -1,0 +1,53 @@
+.sticker-container {
+  position: relative; /* Très important pour que stickers soient positionnés par rapport à ce conteneur */
+  width: 100%;
+  height: 100%;
+  user-select: none; /* évite la sélection de texte lors du drag */
+}
+
+.sticker {
+  position: absolute;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 2px black;
+  border: 8px solid rgb(0, 0, 0);
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.sticker.active {
+  box-shadow: 0 32px 32px rgba(0, 0, 0, 0.5);
+  cursor: grabbing;
+  z-index: 1000;
+}
+
+.sticker-value {
+  position: absolute;
+  pointer-events: none; /* laisse passer les clics à l’image/sticker */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-family: 'Caveat', cursive;
+  font-size: 64px;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+/*Animation for sticker trying to occupy an already in use zone*/
+@keyframes shake {
+  0% { transform: translate(0px, 0px); }
+  20% { transform: translate(-5px, 0px); }
+  40% { transform: translate(5px, 0px); }
+  60% { transform: translate(-5px, 0px); }
+  80% { transform: translate(5px, 0px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+.shake {
+  animation: shake 0.3s;
+}

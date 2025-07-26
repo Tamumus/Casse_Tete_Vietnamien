@@ -1,0 +1,71 @@
+/* contain the whole area we'll interact with (gameboard, stickers, titles, comibnations display..) */
+.game-display-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /*offset to the left*/
+  padding: 2rem;
+}
+
+/*container for the gameboard, tiles on the board, the stickers, and zones*/
+.main-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/*the gameboard itself, contained inside the game display container*/
+.game-board {
+  width: 1200px;
+  height: 700px;
+  background-image: url('/tile_ivory.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 2px solid #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/*the titles and intro text, contained inside the game display*/
+.header-section {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.tile-plus {
+  position: absolute;
+  pointer-events: none; /* laisse passer les clics à l’image/sticker */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+
+.zone {
+  position: absolute;
+  border: 1px dashed #007bff;
+  background-color: rgba(0, 123, 255, 0.1); 
+  box-sizing: border-box;
+}
+
+.zone-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+}
+
+.zone.highlighted {
+  border: 3px dashed orange;
+  background-color: rgba(255, 165, 0, 0.2); /* un léger fond orangé */
+}

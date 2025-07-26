@@ -1,0 +1,30 @@
+/*The title container, the title itself, and the subtitle*/
+
+.title-box {
+  border: 1px solid black;
+  background-image: url('/tile_ivory.jpg');
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: left;
+  min-height: 120px; /* Ajuste selon le contenu */
+  max-height: 320px;
+  border: 2px solid #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.title {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  margin: 0;
+  color: #222;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0;
+  color: #444;
+}

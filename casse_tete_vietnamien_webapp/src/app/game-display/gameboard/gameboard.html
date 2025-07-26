@@ -1,0 +1,19 @@
+<!-- we draw the background via the board class, then we some logic to draw the tiles via ngfor (see the .ts) -->
+
+<div
+  *ngFor="let image of images"
+  class="tile-wrapper"
+  [style.left.px]="image.x"
+  [style.top.px]="image.y"
+  [style.left.px]="image.x"
+  [style.top.px]="image.y"
+  [style.width.px]="100 * scaleFactor"
+  [style.height.px]="100 * scaleFactor"
+>
+  <img
+    [src]="image.src"
+    [class]="image.cssClass" 
+    [style.transform]="'rotate(' + image.rotation + 'deg)'"
+  />
+  <span [class]="image.labelClass">{{ image.label }}</span>
+</div>

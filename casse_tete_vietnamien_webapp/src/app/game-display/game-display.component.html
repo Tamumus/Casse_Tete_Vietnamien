@@ -1,0 +1,49 @@
+<!-- Main container -->
+<div class="game-display-container">
+  <!-- Header section (title + intro text) -->
+  <div class="header-section">
+    <app-title></app-title>
+    <app-intro-text></app-intro-text>
+  </div>
+
+  <!-- Main section: gameboard + combination display side by side -->
+  <div class="main-section">
+    <div class="game-board">
+      
+      <!-- The background grid -->
+      <app-gameboard
+        [boardWidth]="boardWidth"
+        [boardHeight]="boardHeight"
+        [scaleFactor]="scaleFactor"
+        [boardHeightOffset]="boardHeightOffset"
+        [boardWidthOffset]="boardWidthOffset"
+      ></app-gameboard>
+
+      <!-- The stickers -->
+      <app-sticker-component
+        [boardHeight]="boardHeight"
+        [boardWidth]="boardWidth"
+        [scaleFactor]="scaleFactor"
+        [boardHeightOffset]="boardHeightOffset"
+        [boardWidthOffset]="boardWidthOffset"
+        [zones]="zones"
+      ></app-sticker-component>
+
+      <!-- ✅ Zones rendered inline, not as a separate component -->
+      <div
+        *ngFor="let zone of zones"
+        class="zone"
+        [id]="zone.id"
+        [style.left.px]="zone.x"
+        [style.top.px]="zone.y"
+        [style.width.px]="zone.width"
+        [style.height.px]="zone.height"
+      ></div>
+
+      <!-- Debug info -->
+      <div>
+        Zones count: {{ zones.length }}
+      </div>
+    </div>
+  </div>
+</div>
