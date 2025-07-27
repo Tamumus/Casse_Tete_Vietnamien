@@ -7,6 +7,7 @@
 
 .sticker {
   position: absolute;
+  z-index: 3;
   cursor: grab;
   display: flex;
   align-items: center;
@@ -14,7 +15,7 @@
   font-weight: bold;
   color: white;
   text-shadow: 0 0 2px black;
-  border: 8px solid rgb(0, 0, 0);
+  border: 10px solid rgb(0, 0, 0);
   user-select: none;
   transition: box-shadow 0.2s ease;
 }

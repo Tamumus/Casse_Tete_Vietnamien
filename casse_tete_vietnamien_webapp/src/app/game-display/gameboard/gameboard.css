@@ -16,15 +16,22 @@
 }
 
 .tile-image-white {
+  position: absolute;
+  z-index: 0;
   border: 8px solid whitesmoke;
 }
 .tile-image-black {
+  position: absolute;
+  z-index: 1;
+  width: 120%;
+  height: 120%;
   border: 8px solid rgb(0, 0, 0);
 }
 
 /*Those classes are used for labels (what's written on the tiles), we use the different subclasses as needed*/
 .tile-label {
   position: absolute;
+  z-index: 2;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -35,7 +42,7 @@
 
 /*sizes*/
 .label-small {
-  font-size: 32px;
+  font-size: 48px;
 }
 
 .label-large {
