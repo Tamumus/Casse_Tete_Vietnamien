@@ -1,0 +1,20 @@
+.combination-box {
+  width: 300px;
+  padding: 1rem;
+  border: 2px solid #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  background-image: url('/tile_ivory.jpg');
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  background-image: url('/tile_ivory.jpg');
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+  border-radius: 8px;
+  min-height: 120px; /* Ajuste selon le contenu */
+  max-height: 320px;
+}

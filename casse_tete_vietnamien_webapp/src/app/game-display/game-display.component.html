@@ -29,7 +29,7 @@
         [zones]="zones"
       ></app-sticker-component>
 
-      <!-- ✅ Zones rendered inline, not as a separate component -->
+      <!-- Zones rendered inline, not as a separate component -->
       <div
         *ngFor="let zone of zones"
         class="zone"
@@ -39,11 +39,9 @@
         [style.width.px]="zone.width"
         [style.height.px]="zone.height"
       ></div>
-
-      <!-- Debug info -->
-      <div>
-        Zones count: {{ zones.length }}
-      </div>
     </div>
-  </div>
+    <!-- Right: Combination display zone -->
+    <div class="combinations-panel w-[420px]">
+      <app-combination-display></app-combination-display>
+    </div>
 </div>

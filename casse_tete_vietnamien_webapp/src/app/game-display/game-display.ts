@@ -4,13 +4,14 @@ import { TitleComponent } from './title/title-component';
 import { IntroText } from './intro-text/intro-text';
 import { StickerComponent } from "./sticker/sticker_component";
 import { GameboardComponent } from './gameboard/gameboard_component';
-// import { ZoneComponent } from './interactive-zone/interactive-zone_component';
+import { CombinationDisplayComponent } from '../combination-display/combination-display.component';
 import { ZoneUtils } from './sticker/interactive-zone_util';
 import { Zone } from './sticker/interactive-zone';
+import { CombinationService,Combination } from '../api/combination-calculation.service';
 
 @Component({
   selector: 'app-game-display',
-  imports: [CommonModule,TitleComponent, IntroText, StickerComponent, GameboardComponent],
+  imports: [CommonModule,TitleComponent, IntroText, StickerComponent, GameboardComponent,CombinationDisplayComponent],
   templateUrl: './game-display.component.html',
   styleUrls: ['./game-display.component.css']
 })
@@ -21,8 +22,11 @@ export class GameDisplayComponent implements OnInit {
   scaleFactor: number = 1;
   boardHeightOffset: number = 0;
   boardWidthOffset: number = 0;
-  
-  constructor() {}
+
+  calculationMessage: string = '';
+  solutions: Combination[] = [];
+
+  constructor(private combinationService: CombinationService) {}
 
   ngOnInit(): void {
     this.setBoardDimensions();
@@ -51,5 +55,30 @@ export class GameDisplayComponent implements OnInit {
     const offsetRatio = 0.04; // 4% of width and height
     this.boardHeightOffset = this.boardHeight * offsetRatio;
     this.boardWidthOffset = this.boardWidth * offsetRatio;
+  }
+
+  onSolveButtonClick(): void {
+    this.calculationMessage = 'Calcul en cours...';
+    this.solutions = [];
+
+    this.combinationService.generateCombination().subscribe({
+      next: (message) => {
+        this.calculationMessage = message;
+
+        this.combinationService.getAllSolutions().subscribe({
+          next: (solutions) => {
+            this.solutions = solutions;
+          },
+          error: (err) => {
+            this.calculationMessage = 'Erreur lors de la récupération des solutions.';
+            console.error(err);
+          }
+        });
+      },
+      error: (err) => {
+        this.calculationMessage = 'Erreur lors du calcul des solutions.';
+        console.error(err);
+      }
+    });
   }
 }

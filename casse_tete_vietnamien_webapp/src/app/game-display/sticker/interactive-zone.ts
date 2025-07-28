@@ -5,5 +5,4 @@ export interface Zone {
   height: number;
   stickerValue: number | null;
   id: string;
-  highlighted?: boolean; // 🆕 facultatif, permet de savoir si on la survole
 }

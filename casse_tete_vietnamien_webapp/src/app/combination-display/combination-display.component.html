@@ -1,0 +1,14 @@
+<div class="combination-box">
+  <button (click)="onSolveButtonClick()">Résoudre l’équation</button>
+
+  <p>{{ calculationMessage }}</p>
+
+  <div class="solutions-list">
+    <ul *ngIf="solutions.length > 0">
+      <li *ngFor="let sol of solutions" class="solution-item">
+        <span class="solution-text">{{ sol.numbers }}</span>
+        <button class="delete-button" (click)="onDeleteCombination(sol.id)">🗑</button>
+      </li>
+    </ul>
+  </div>
+</div>

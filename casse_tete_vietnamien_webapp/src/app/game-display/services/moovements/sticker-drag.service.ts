@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Zone } from '../sticker/interactive-zone';
-import { StickerData } from '../sticker/sticker';
-import { AudioService } from '../../shared/audio-service';
+import { Zone } from '../../sticker/interactive-zone';
+import { StickerData } from '../../sticker/sticker';
+import { AudioService } from '../../../shared/audio-service';
 
 //So, we separate all the moovements of the stickers here. it's far easier to maintain, I think?
 @Injectable({ providedIn: 'root' })
@@ -73,13 +73,13 @@ export class StickerDragService {
       const zoneY = zone.y;
       const zoneSize = zone.width;
 
-      //is the sticker overlapping a zone? the value
+      //is the sticker overlapping a zone? as a boolean for checks below
       const isOverlapping = this.isOverlappingRect(
         stickerX, stickerY, stickerSize, stickerSize,
         zoneX, zoneY, zoneSize, zoneSize
       );
 
-      //test if it overlaps, and the possible cases
+      //if is overlapping true...
       if (isOverlapping) {
         const isZoneAlreadyUsed = zone.stickerValue !== null;
         const otherStickerInZone = this.stickers.some(
@@ -111,7 +111,7 @@ export class StickerDragService {
       sticker.x = sticker.spawnX;
       sticker.y = sticker.spawnY;
 
-      
+
       if (sticker.currentZoneId) {
         const oldZone = this.zones.find(z => z.id === sticker.currentZoneId);
         if (oldZone) oldZone.stickerValue = null;

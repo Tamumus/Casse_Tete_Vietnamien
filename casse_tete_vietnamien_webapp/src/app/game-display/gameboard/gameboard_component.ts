@@ -1,6 +1,6 @@
 import { Component, OnInit,Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TileUtilsService } from '../services/tile-utils.service';
+import { TileUtilsService } from '../services/graphics/tile-utils.service';
 
 //we want get viewportsize out of those (browser area we play with)
 
@@ -17,8 +17,8 @@ export class GameboardComponent implements OnInit
   
   //Init the utils that beautify the tiles
   constructor(private tileUtils: TileUtilsService) {}
-  @Input() boardHeight: number = 600; 
-  @Input() boardWidth: number = 700;
+  @Input() boardHeight: number = 0; 
+  @Input() boardWidth: number = 0;
   @Input() scaleFactor: number = 1; //1 so we don't mult scaling by zero in case zomething breaks in gamedisplay.ts
   @Input() boardHeightOffset: number = 0;
   @Input() boardWidthOffset: number = 0;
@@ -45,7 +45,7 @@ export class GameboardComponent implements OnInit
 
     // place all the numbers (five total)
     i = 0;
-    x= 0 + this.boardWidthOffset/2,1; //those tiles are a bit bigger than the black ones, so we offset them differently. 2.1 because they're 20% bigger /2
+    x= 0 + this.boardWidthOffset/2,1; //those tiles are a bit bigger than the black ones, so we offset them differently. 2.1 (because they're 20% bigger / 2. good enough approx)
     while (i < 4)
     {
       x = x;
