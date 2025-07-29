@@ -4,26 +4,31 @@ import com.cassetete.backend.entity.Combination;
 import com.cassetete.backend.repository.CombinationRepository;
 import com.cassetete.backend.algocassete.EquationSolver;
 import com.cassetete.backend.dto.CombinationDTO;
+import com.cassetete.backend.service.CombinationDeletionService;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CombinationService {
 
     //what the API will call is described/implemented below
     private final CombinationRepository repository;
+    private final CombinationDeletionService deletionService;
 
-    public CombinationService(CombinationRepository repository) {
+    public CombinationService(CombinationRepository repository, CombinationDeletionService deletionService) {
         this.repository = repository;
-    }
+        this.deletionService = deletionService;
+    } // <-- fermeture du constructeur ici
 
     //Create via api call
     public void generateAndSaveAllSolutions() {
         EquationSolver solver = new EquationSolver();
         List<Combination> results = solver.generateAllValidCombinations();
+
+        // Supprimer toutes les combinaisons existantes avant d'enregistrer les nouvelles
+        deletionService.deleteAllCombinationsAndResetIds();  // Utilise le service pour reset proprement
 
         long start = System.currentTimeMillis();
         repository.saveAll(results);
@@ -50,8 +55,8 @@ public class CombinationService {
     // Make the DTO into a combination/entity. So we compare apples to apples later
     public Combination dtoToEntity(CombinationDTO dto) {
         Combination comb = new Combination();
-
-        comb.setX1(dto.getX1() != null ? dto.getX1() : 0); //if not null (user given value...) we use it as is. Or we set it to zero (the ints from the back/algo can't be zero so it's aokay)
+        System.out.println("Entité transformée : " + dto.toEntity());
+        comb.setX1(dto.getX1() != null ? dto.getX1() : 0);
         comb.setX2(dto.getX2() != null ? dto.getX2() : 0);
         comb.setX3(dto.getX3() != null ? dto.getX3() : 0);
         comb.setX4(dto.getX4() != null ? dto.getX4() : 0);
@@ -63,6 +68,7 @@ public class CombinationService {
 
         return comb;
     }
+
     //Check if the solution submitted by the user is valid
     private static final double TARGET_VALUE = 66.0;
 

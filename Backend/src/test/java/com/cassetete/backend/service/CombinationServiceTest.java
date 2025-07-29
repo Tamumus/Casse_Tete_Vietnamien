@@ -2,9 +2,11 @@ package com.cassetete.backend.service;
 
 import com.cassetete.backend.entity.Combination;
 import com.cassetete.backend.repository.CombinationRepository;
+import com.cassetete.backend.service.CombinationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import com.cassetete.backend.service.CombinationDeletionService;
 
 import java.util.List;
 
@@ -14,12 +16,14 @@ import static org.mockito.Mockito.*;
 public class CombinationServiceTest {
 
     private CombinationRepository repository;
+    private CombinationDeletionService deletionService; // Ajout
     private CombinationService service;
 
     @BeforeEach
     void setUp() {
         repository = mock(CombinationRepository.class);
-        service = new CombinationService(repository);
+        deletionService = mock(CombinationDeletionService.class); // mock aussi
+        service = new CombinationService(repository, deletionService); // passe les 2 mocks
     }
 
     @Test
