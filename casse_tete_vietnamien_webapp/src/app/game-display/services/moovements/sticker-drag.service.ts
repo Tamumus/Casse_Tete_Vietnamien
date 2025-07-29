@@ -2,8 +2,14 @@ import { Injectable } from '@angular/core';
 import { Zone } from '../../sticker/interactive-zone';
 import { StickerData } from '../../sticker/sticker';
 import { AudioService } from '../../../shared/audio-service';
+import { CombinationDTO } from '../../../models/combination-dto.model';
+import { VictoryService } from '../graphics/victory.service';
+import { CombinationCheckerService } from '../../../api/combination-checker.service';
+import { CombinationCheatService } from '../../../combination-display/combination-cheat.service';
+import { CombinationService } from '../../../api/combination-calculation.service';
 
 //So, we separate all the moovements of the stickers here. it's far easier to maintain, I think?
+
 @Injectable({ providedIn: 'root' })
 export class StickerDragService {
   //All this is inherited from the component
@@ -16,8 +22,23 @@ export class StickerDragService {
   private boardWidthOffset = 0;
   private boardHeightOffset = 0;
 
-  //needed to have the sound effects play
-  constructor(private audioService: AudioService) {}
+  // Timer de suggestion après 10 secondes
+  private suggestionTimer: any = null;
+  private suggestionDelayMs = 2000; // 2 secondes
+
+  //needed to have the sound effects play and other nice effects
+  constructor(
+    private audioService: AudioService,
+    private combinationChecker: CombinationCheckerService,
+    private victoryService: VictoryService,
+    private combinationCheatService: CombinationCheatService,
+    private combinationService: CombinationService,
+  ) {}
+
+  //Expose selectedSticker so components can use it (ex: CSS class active)
+  getSelectedSticker(): StickerData | null {
+    return this.selectedSticker;
+  }
 
   //Save it for later (AKA stuff is mooving around)
   initialize(stickers: StickerData[], zones: Zone[], scaleFactor: number, widthOffset: number, heightOffset: number) {
@@ -40,6 +61,11 @@ export class StickerDragService {
 
     //sticker mooving on top of everytinh else
     sticker.zIndex = 1000;
+
+    // (Re)boot the timers for the cheatmode
+    this.clearSuggestionTimer();
+    this.suggestionTimer = setTimeout(() => this.onSuggestionTimeout(), this.suggestionDelayMs);
+    console.log('Timer suggestion démarré pour le sticker', sticker.id);
 
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('mouseup', this.stopDrag);
@@ -111,7 +137,6 @@ export class StickerDragService {
       sticker.x = sticker.spawnX;
       sticker.y = sticker.spawnY;
 
-
       if (sticker.currentZoneId) {
         const oldZone = this.zones.find(z => z.id === sticker.currentZoneId);
         if (oldZone) oldZone.stickerValue = null;
@@ -128,9 +153,42 @@ export class StickerDragService {
       this.audioService.playShakeSound();
     }
 
+    // Call the back to chec if dropping this sitcker solved the game
+   
+    if (placedInZone) {
+      const dto: CombinationDTO = this.buildCombinationDTO();
+
+      // check if the DTO is filled, if yes, call the checker o nthe back
+      const allZonesFilled = Object.keys(dto).length === 9 && Object.values(dto).every(v => v !== null && v !== undefined);
+
+      if (allZonesFilled) {
+        this.combinationChecker.checkCombination(dto).subscribe({
+          next: (response) => {
+            if (response && typeof response === 'object' && 'message' in response) {
+              const message = response.message as string;
+
+              if (message.includes('✅')) {
+                this.victoryService.showVictory();
+              } else if (message.includes('❌')) {
+                this.victoryService.showDefeat();
+              } else {
+                console.warn('Message inattendu reçu:', message);
+              }
+            } else {
+              console.warn('Réponse inattendue du backend:', response);
+            }
+          },
+          error: (err) => {
+            console.error('Erreur lors de la vérification de la combinaison', err);
+          }
+        });
+      }
+    }
+
     //clean up after mooving a sticker
     sticker.zIndex = 4;
     this.selectedSticker = null;
+    this.clearSuggestionTimer();
     this.cleanupListeners();
   };
 
@@ -148,5 +206,68 @@ export class StickerDragService {
   cleanupListeners() {
     window.removeEventListener('mousemove', this.onMouseMove);
     window.removeEventListener('mouseup', this.stopDrag);
+  }
+
+  // What we send to the back (and it expects to receive on this endpoint)
+  private buildCombinationDTO(): CombinationDTO {
+    const dto: CombinationDTO = {};
+    for (let i = 0; i < this.zones.length; i++) {
+      const zone = this.zones[i];
+      if (zone.stickerValue !== null) {
+        const key = `x${i + 1}` as keyof CombinationDTO;
+        dto[key] = zone.stickerValue;
+      }
+    }
+    return dto;
+  }
+
+  //the cheatmode didn't trigger
+  private clearSuggestionTimer() {
+    if (this.suggestionTimer) {
+      clearTimeout(this.suggestionTimer);
+      this.suggestionTimer = null;
+    }
+  }
+
+  //cheatmode triggered
+  private onSuggestionTimeout() {
+    console.log('Timer suggestion expiré')
+    if (!this.selectedSticker) return;
+    
+    // if we don't have the combis in the cheatservice yet, we load them
+    if (!this.combinationCheatService.hasSolutions()) {
+      this.combinationService.getAllSolutions().subscribe({
+        next: (solutions) => {
+          this.combinationCheatService.setSolutions(solutions);
+          this.trySuggestPosition();
+        },
+        error: (err) => {
+          console.error('Erreur chargement solutions pour suggestion', err);
+        }
+      });
+    } else {
+      this.trySuggestPosition();
+    }
+  }
+
+  private trySuggestPosition() {
+    if (!this.selectedSticker) return;
+    console.log('Tentative de suggestion pour sticker', this.selectedSticker.id);
+
+    // get where the placed stickers are
+    const currentPositions = this.getCurrentPositions();
+
+    const suggestedPos = this.combinationCheatService.suggestPositionForSticker(currentPositions, this.selectedSticker.value);
+
+    if (suggestedPos !== null) {
+      // TODO: Afficher la suggestion dans l’UI (tooltip, highlight, etc)
+      console.log(`Suggestion : placer le sticker à la position ${suggestedPos}`);
+    } else {
+      console.log('Aucune suggestion possible');
+    }
+  }
+
+  private getCurrentPositions(): (number | null)[] {
+    return this.zones.map(zone => zone.stickerValue);
   }
 }

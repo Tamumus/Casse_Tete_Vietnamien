@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-
-//used for the sound effects of the stickers
+//used for the sound effects of the stickers and victory/defeat
 @Injectable({
   providedIn: 'root'
 })
@@ -20,4 +19,14 @@ export class AudioService {
   playSlideInSound(): void {
     this.playSound('slide_in_place.mp3');
   }
+
+  playVictorySound(): void {
+    this.playSound('victory_tune.mp3')
+  }
+  
+  playDefeatSound(): void {
+    this.playSound('defeat_tune.mp3')
+  }
+
+
 }

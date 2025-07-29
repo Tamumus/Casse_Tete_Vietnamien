@@ -33,6 +33,7 @@
       <div
         *ngFor="let zone of zones"
         class="zone"
+        [ngClass]="{ blinking: suggestedZoneId === zone.id }"
         [id]="zone.id"
         [style.left.px]="zone.x"
         [style.top.px]="zone.y"
@@ -40,8 +41,20 @@
         [style.height.px]="zone.height"
       ></div>
     </div>
+
     <!-- Right: Combination display zone -->
-    <div class="combinations-panel w-[420px]">
+    <div class="combinations-panel">
       <app-combination-display></app-combination-display>
     </div>
-</div>
+  </div>
+
+  <!-- Victory screen -->
+  <div *ngIf="showVictoryScreen" class="victory-overlay" (click)="showVictoryScreen = false">
+    <img src="victory.jpg" alt="Victoire" />
+  </div>
+
+  <!-- Defeat screen -->
+  <div *ngIf="showDefeatScreen" class="defeat-screen" (click)="showDefeatScreen = false">
+    <img src="defeat.jpg" alt="Défaite" />
+  </div>
+</div> 

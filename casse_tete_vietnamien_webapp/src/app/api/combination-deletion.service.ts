@@ -12,7 +12,7 @@ export class CombinationDeletionService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  clearAllCombinations(): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}`);
+  clearAllAndResetIds(): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/full-reset`);
   }
 }

@@ -21,7 +21,7 @@
 }
 
 .sticker.active {
-  box-shadow: 0 32px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 60px 10px rgb(0, 0, 0) !important;
   cursor: grabbing;
   z-index: 1000;
 }

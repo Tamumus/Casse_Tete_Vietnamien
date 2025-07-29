@@ -15,15 +15,9 @@ import { StickerDragService } from '../services/moovements/sticker-drag.service'
   styleUrls: ['./sticker.css']
 })
 export class StickerComponent implements OnInit {
-  //backend interactions below
-//   constructor(private http: HttpClient) {}
-//   // submitZones() {
-//   // // the nine zones and their values
-//   // const values = this.zones.map(z => z.stickerValue); //debug stuff
-//   // console.log('Valeurs à envoyer au backend :', values); //debug stuff
-//   // //WIP for the rest of backend interactions
-// }
-  constructor(private http: HttpClient, private dragService: StickerDragService) {}
+
+  constructor(public http: HttpClient, public dragService: StickerDragService) {}
+
   @Input() boardHeight: number = 0;
   @Input() boardWidth: number = 0;
   @Input() scaleFactor: number = 1; //1 so we don't mult scaling by zero in case zomething breaks in gamedisplay.ts
@@ -35,10 +29,15 @@ export class StickerComponent implements OnInit {
   private lastZone: Zone | null = null; // Needed below for the logic, 
 
   stickers: StickerData[] = [];
-  readonly imageSrc = 'tile_white.jpg'
+  readonly imageSrc = 'tile_white.jpg';
   src = this.imageSrc;
- //wich stick to drag/being dragged
-  selectedSticker: StickerData | null = null;
+
+  //removed selectedSticker from the component, now delegated to the service
+  //wich stick to drag/being dragged — from now on, ask the service
+  get selectedSticker(): StickerData | null {
+    return this.dragService.getSelectedSticker();
+  }
+
   offsetX = 0; 
   offsetY = 0;
   containerRect: DOMRect | null = null;
@@ -64,48 +63,49 @@ export class StickerComponent implements OnInit {
       this.boardWidthOffset,
       this.boardHeightOffset
     );
-}
+  }
 
   //calc the positions of the nine stickers based on the scaling
   generatestickersPositions() {
-  let i: number = 1;
-  let x: number = 0, y: number = 0;
-  const spacing = 100 * this.scaleFactor;
+    let i: number = 1;
+    let x: number = 0, y: number = 0;
+    const spacing = 100 * this.scaleFactor;
 
-  // First column (1 to 4)
-  x = spacing * 8 + this.boardWidthOffset;
-  for (; i <= 4; i++) {
-    y = i * spacing + this.boardHeightOffset;
-    this.stickers.push({
-      id: `sticker-${i}`,
-      src: this.imageSrc,
-      x: x,
-      y: y,
-      spawnX: x,
-      spawnY: y,
-      value: i,
-      currentZoneId: null
-    });
+    // First column (1 to 4)
+    x = spacing * 8 + this.boardWidthOffset;
+    for (; i <= 4; i++) {
+      y = i * spacing + this.boardHeightOffset;
+      this.stickers.push({
+        id: `sticker-${i}`,
+        src: this.imageSrc,
+        x: x,
+        y: y,
+        spawnX: x,
+        spawnY: y,
+        value: i,
+        currentZoneId: null
+      });
+    }
+
+    // Second column (5 to 9)
+    x = spacing * 9 + this.boardWidthOffset;
+    for (; i <= 9; i++) {
+      y = (i - 4) * spacing + this.boardHeightOffset;
+      this.stickers.push({
+        id: `sticker-${i}`,
+        src: this.imageSrc,
+        x: x,
+        y: y,
+        spawnX: x,
+        spawnY: y,
+        value: i,
+        currentZoneId: null
+      });
+    }
   }
 
-  // Second colum (5 to 9)
-  x = spacing * 9 + this.boardWidthOffset;
-  for (; i <= 9; i++) {
-    y = (i - 4) * spacing + this.boardHeightOffset;
-    this.stickers.push({
-      id: `sticker-${i}`,
-      src: this.imageSrc,
-      x: x,
-      y: y,
-      spawnX: x,
-      spawnY: y,
-      value: i,
-      currentZoneId: null
-    });
+  //We call the moovement.service. God, that took so long to refractor
+  startDrag(event: MouseEvent, sticker: StickerData) {
+    this.dragService.startDrag(event, sticker);
   }
-}
-//We call the moovement.service. God, that took so long to refractor
-startDrag(event: MouseEvent, sticker: StickerData) {
-  this.dragService.startDrag(event, sticker);
-}
 }

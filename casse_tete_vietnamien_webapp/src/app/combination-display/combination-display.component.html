@@ -1,14 +1,41 @@
 <div class="combination-box">
-  <button (click)="onSolveButtonClick()">Résoudre l’équation</button>
 
-  <p>{{ calculationMessage }}</p>
-
-  <div class="solutions-list">
-    <ul *ngIf="solutions.length > 0">
-      <li *ngFor="let sol of solutions" class="solution-item">
-        <span class="solution-text">{{ sol.numbers }}</span>
-        <button class="delete-button" (click)="onDeleteCombination(sol.id)">🗑</button>
-      </li>
-    </ul>
+  <!-- Ligne boutons + message -->
+  <div class="button-row">
+    <div class="action-buttons">
+      <button (click)="onSolveButtonClick()">✔ Résoudre l’équation</button>
+      <button class="clear-all" (click)="onDeleteAll()">🧹 Tout supprimer</button>
+    </div>
+    <p class="calculation-message">{{ calculationMessage }}</p>
   </div>
+
+  <!-- Ligne des filtres -->
+  <div class="filter-row">
+    <label *ngFor="let pos of filterPositions; index as i" class="filter-label">
+      <select [(ngModel)]="filterPositions[i]">
+        <option *ngFor="let n of getAvailableNumbersForPosition(i)" [ngValue]="n">
+          {{ n === null ? '—' : n }}
+        </option>
+      </select>
+    </label>
+  </div>
+
+  <!-- Message si aucune solution -->
+  <div *ngIf="getFilteredSolutions().length === 0" class="no-solutions">
+    Pas de solutions pour le moment.
+  </div>
+
+  <!-- Cartes des combinaisons -->
+  <div *ngFor="let sol of getFilteredSolutions()" class="combination-card">
+    <div class="solution-line">
+      <p class="solution-text">
+        <strong>ID:</strong> {{ sol.id }} &nbsp; <strong>Valeurs :</strong>
+        {{ getValuesArray(sol).join(' , ') }}
+      </p>
+      <button class="delete-btn" (click)="onDeleteCombination(sol.id)" title="Supprimer">
+        🗑
+      </button>
+    </div>
+  </div>
+
 </div>

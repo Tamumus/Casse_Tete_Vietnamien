@@ -1,20 +1,97 @@
 .combination-box {
-  width: 300px;
-  padding: 1rem;
+  padding: 0 1.5rem 0rem 1.5rem;
   border: 2px solid #333;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background-image: url('/tile_ivory.jpg');
-  padding: 1rem 1.5rem;
-  margin: 1rem auto;
+  background-color: #fdfdf4; 
   font-family: 'Caveat', cursive;
   font-size: 1.1rem;
-  background-image: url('/tile_ivory.jpg');
-  padding: 1rem 1.5rem;
-  margin: 1rem auto;
-  width: 400px;
-  min-width: 400px;
-  max-width: 400px;
+  margin: 0rem auto;
+  width: 600px;
+  height: 650px;
   border-radius: 8px;
-  min-height: 120px; /* Ajuste selon le contenu */
-  max-height: 320px;
+  overflow-y: auto;
+}
+/* Where the button lives, sticky so scrolling doesn't affect it, Z100 so when you scroll the combis go behind it */
+.button-row {
+  background-image: url('/tile_ivory.jpg');
+  background-color: #fdfdf4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 10px 16px; /* <- plus d'espace aux extrémités */
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.clear-all {
+  background-color: #f8d7da;
+  border: 1px solid #000000;
+}
+
+/* Where a combi and the button to delete it lives */
+.combination-card {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background-image: url('/tile_black2.jpg');
+  background-color: #f1f1f1;
+  border-radius: 6px;
+}
+
+/* Contains the displayed stuff of a combi */
+.solution-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.solution-text {
+  color: rgb(255, 255, 255);
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  color: #d11a2a;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-row label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.9rem;
+}
+
+.filter-row select {
+  width: 40px;
+  padding: 4px;
+  font-size: 1rem;
+  text-align: center;
 }
