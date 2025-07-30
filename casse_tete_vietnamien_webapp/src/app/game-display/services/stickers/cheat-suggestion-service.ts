@@ -29,10 +29,11 @@ export class CheatSuggestionService {
           this.trySuggestPosition();
         },
         error: (err) => {
-          console.warn('Pas de solutions disponibles ou erreur chargement, arrêt de la suggestion', err);
-          this.cancelSuggestionTimer(); // stoppe le timer et n'essaye plus
-          this.sticker = null; // on "oublie" le sticker
-          this.zones = [];
+          //We don't give feedback to not flood the console..tbh, I could set a flag at the init of the front that checks if the DB is up to handle that..
+          // buuut...I do feel it's out of scope for the project
+          this.cancelSuggestionTimer(); // stop timer
+          this.sticker = null; // forget stuff
+          this.zones = []; //reset the zones
         }
       });
     } else {
@@ -57,11 +58,11 @@ export class CheatSuggestionService {
 
     const suggestedPos = this.cheatService.suggestPositionForSticker(currentPositions, this.sticker.value);
 
+    //debug IF
     if (suggestedPos !== null) {
-      console.log(`Suggestion : placer le sticker à la position ${suggestedPos}`);
-      // TODO: tu peux émettre un événement ou mettre à jour l'UI ici
+    //   console.log(`Suggestion : placer le sticker à la position ${suggestedPos}`);
     } else {
-      console.log('Aucune suggestion possible');
+    //   console.log('Aucune suggestion possible');
     }
   }
 

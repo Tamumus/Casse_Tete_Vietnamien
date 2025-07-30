@@ -16,14 +16,14 @@ import static org.mockito.Mockito.*;
 public class CombinationServiceTest {
 
     private CombinationRepository repository;
-    private CombinationDeletionService deletionService; // Ajout
+    private CombinationDeletionService deletionService;
     private CombinationService service;
 
     @BeforeEach
     void setUp() {
         repository = mock(CombinationRepository.class);
-        deletionService = mock(CombinationDeletionService.class); // mock aussi
-        service = new CombinationService(repository, deletionService); // passe les 2 mocks
+        deletionService = mock(CombinationDeletionService.class);
+        service = new CombinationService(repository, deletionService);
     }
 
     @Test

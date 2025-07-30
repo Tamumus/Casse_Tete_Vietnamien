@@ -4,7 +4,6 @@ import com.cassetete.backend.entity.Combination;
 import com.cassetete.backend.repository.CombinationRepository;
 import com.cassetete.backend.algocassete.EquationSolver;
 import com.cassetete.backend.dto.CombinationDTO;
-import com.cassetete.backend.service.CombinationDeletionService;
 
 import org.springframework.stereotype.Service;
 

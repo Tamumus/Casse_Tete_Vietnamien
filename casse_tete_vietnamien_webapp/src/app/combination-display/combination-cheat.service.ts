@@ -78,4 +78,5 @@ export class CombinationCheatService {
     this.suggestedZoneSubject.next(suggestedPos);
     return suggestedPos;
   }
+  
 }
