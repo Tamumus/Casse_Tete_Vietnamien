@@ -23,7 +23,11 @@ export class GameboardComponent implements OnInit
   @Input() boardHeightOffset: number = 0;
   @Input() boardWidthOffset: number = 0;
 
-  images:{ src: string, x: number, y: number,draggable: boolean, label?: string, labelClass?: string, rotation?:number, cssClass?: string}[] = []; //correct class, use that when we have the image lib done
+  images:{ src: string, x: number, y: number,
+          draggable: boolean, label?: string, 
+          labelClass?: string, rotation?:number, 
+          cssClass?: string}[] = []; 
+  //This is legacy code I don't want to break so far in the project
   readonly imageSrc = 'tile_black2.jpg'
   src = this.imageSrc;
   //When the front is booted, calculate the coords of all the tiles  then display them

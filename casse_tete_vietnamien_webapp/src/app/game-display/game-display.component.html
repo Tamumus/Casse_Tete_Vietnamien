@@ -4,6 +4,11 @@
   <div class="header-section">
     <app-title></app-title>
     <app-intro-text></app-intro-text>
+
+    <a href="https://github.com/Tamumus/Casse_Tete_Vietnamien/tree/master" target="_blank" rel="noopener noreferrer" class="github-link" aria-label="Voir le repo GitHub">
+    <img src="GitHub-Logo.png" alt="GitHub" />
+  </a>
+
   </div>
 
   <!-- Main section: gameboard + combination display side by side -->
@@ -56,5 +61,10 @@
   <!-- Defeat screen -->
   <div *ngIf="showDefeatScreen" class="defeat-screen" (click)="showDefeatScreen = false">
     <img src="defeat.jpg" alt="Défaite" />
+  </div>
+
+  <!-- Error screen -->
+  <div *ngIf="showErrorScreen" class="error-overlay" (click)="showErrorScreen = false">
+    <img src="error.jpg" alt="BOOT THE BACKEND!!!" />
   </div>
 </div> 

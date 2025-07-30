@@ -1,6 +1,6 @@
 <div class="combination-box">
 
-  <!-- Ligne boutons + message -->
+  <!-- buttons + ms time  -->
   <div class="button-row">
     <div class="action-buttons">
       <button (click)="onSolveButtonClick()">✔ Résoudre l’équation</button>
@@ -9,7 +9,7 @@
     <p class="calculation-message">{{ calculationMessage }}</p>
   </div>
 
-  <!-- Ligne des filtres -->
+  <!-- lign of filters -->
   <div class="filter-row">
     <label *ngFor="let pos of filterPositions; index as i" class="filter-label">
       <select [(ngModel)]="filterPositions[i]">
@@ -20,12 +20,12 @@
     </label>
   </div>
 
-  <!-- Message si aucune solution -->
+  <!-- if there's no soluce (user ddin't gen any or the filters have no match) -->
   <div *ngIf="getFilteredSolutions().length === 0" class="no-solutions">
     Pas de solutions pour le moment.
   </div>
 
-  <!-- Cartes des combinaisons -->
+  <!-- based on what's filtered if anything, display. I promised chatgpt I would credit it by using the 🗑. It looks kinda cool to be honest -->
   <div *ngFor="let sol of getFilteredSolutions()" class="combination-card">
     <div class="solution-line">
       <p class="solution-text">
@@ -33,7 +33,7 @@
         {{ getValuesArray(sol).join(' , ') }}
       </p>
       <button class="delete-btn" (click)="onDeleteCombination(sol.id)" title="Supprimer">
-        🗑
+        🗑 
       </button>
     </div>
   </div>

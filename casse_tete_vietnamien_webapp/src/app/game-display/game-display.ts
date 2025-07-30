@@ -21,6 +21,8 @@ import { CombinationCheatService } from '../combination-display/combination-chea
 export class GameDisplayComponent implements OnInit, OnDestroy {
   showVictoryScreen = false;
   showDefeatScreen = false;
+  showErrorScreen: boolean = false;
+  
   private statusSub?: Subscription;
   private cheatSub?: Subscription;
 
@@ -39,8 +41,10 @@ export class GameDisplayComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Listen for the victory/defeat status
     this.statusSub = this.victoryService.status$.subscribe((status: GameStatus) => {;
+      console.log("Status reçu via VictoryService:", status);
       this.showVictoryScreen = status === 'victory';
       this.showDefeatScreen = status === 'defeat';
+      this.showErrorScreen = status === 'error';
 
       if (status === 'victory') {
         this.AudioService.playVictorySound();

@@ -73,6 +73,7 @@ button {
   color: #d11a2a;
 }
 
+/*the filters*/
 .filter-row {
   display: flex;
   gap: 8px;

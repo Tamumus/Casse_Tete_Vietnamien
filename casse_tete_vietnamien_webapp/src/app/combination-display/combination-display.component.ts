@@ -16,10 +16,10 @@ export class CombinationDisplayComponent {
   calculationMessage: string = '';
   solutions: CombinationModel[] = [];
 
-  // Tableau des 9 filtres, null = pas de filtre sur cette position
+  //null == no filtering
   filterPositions: (number | null)[] = Array(9).fill(null);
 
-  // Liste des chiffres possibles
+  // ints from 1 to 9, what's we have to solve the math problem
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   constructor(
@@ -33,7 +33,7 @@ export class CombinationDisplayComponent {
 
     this.combinationService.generateCombination().subscribe({
       next: (message) => {
-        this.calculationMessage = message;
+        this.calculationMessage = message; //it shouldn't be displayed due tp how fast the algo is..but hey. 
         this.combinationService.getAllSolutions().subscribe({ //go check the ednpoitnt hat contains the whole DB
           next: (solutions) => {
             this.solutions = solutions;
@@ -49,6 +49,7 @@ export class CombinationDisplayComponent {
     });
   }
 
+  //API calls to delete stuff (API folder)
   onDeleteCombination(id: number): void {
     this.combinationDeletionService.deleteCombination(id).subscribe({
       next: () => {
@@ -82,14 +83,14 @@ export class CombinationDisplayComponent {
     ];
   }
 
-  // Retourne la liste des valeurs disponibles pour le select i, en excluant celles déjà choisies ailleurs
+  // if an int is already used to filter, we don't have the possibility to use it again
   getAvailableNumbersForPosition(index: number): (number | null)[] {
     const usedNumbers = this.filterPositions
       .filter((val, i) => val !== null && i !== index) as number[];
     return [null, ...this.numbers.filter(n => !usedNumbers.includes(n))];
   }
 
-  // Filtre les solutions selon les valeurs choisies dans filterPositions
+  // Filter combis based on the numbers used to filter in the combi box
   getFilteredSolutions(): CombinationModel[] {
     return this.solutions.filter(sol => {
       const vals = this.getValuesArray(sol);

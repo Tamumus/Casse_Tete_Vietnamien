@@ -1,4 +1,9 @@
+
+<!-- what matters here is the mousdeown that calls a service in the ts of the stickers, allowing us to change its class and moove it around -->
 <div class="sticker-container">
+  <button class="reset-button" (click)="resetStickers()">
+  🔁 
+  </button>
   <div
     *ngFor="let sticker of stickers"
     class="sticker"
@@ -9,7 +14,7 @@
     [style.width.px]="100 * scaleFactor"
     [style.height.px]="100 * scaleFactor"
     [style.zIndex]="sticker.zIndex || 3"
-    (mousedown)="dragService.startDrag($event, sticker)"
+    (mousedown)="dragService.startDrag($event, sticker)" 
   >
     <img [src]="sticker.src" draggable="false" style="width: 100%; height: 100%;" />
     <div class="sticker-value">{{ sticker.value }}</div>

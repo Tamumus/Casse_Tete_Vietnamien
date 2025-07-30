@@ -48,6 +48,26 @@
   color: white;
   text-shadow: 0 0 5px black;
 }
+
+.github-link {
+  padding: 1rem 1.5rem;
+  margin: 1rem auto;
+  width: 148px;
+  height: 124px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.github-link:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.github-link img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 /*the zones*/
 .zone {
   position: absolute;
@@ -114,6 +134,26 @@
 }
 
 .defeat-screen img {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 12px;
+  box-shadow: 0 0 20px white;
+}
+
+/*error screen AKA boot the backend.jpg*/
+
+.error-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.error-overlay img {
   max-width: 80vw;
   max-height: 80vh;
   border-radius: 12px;

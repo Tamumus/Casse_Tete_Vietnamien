@@ -22,6 +22,7 @@ export class CombinationCheatService {
     this.solutions = solutions;
   }
 
+  //so we do nothing if the user didn't gen the combis yet. Either you cheat or you don't!
   hasSolutions(): boolean {
     return this.solutions.length > 0;
   }
