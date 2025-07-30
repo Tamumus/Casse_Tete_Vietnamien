@@ -18,6 +18,7 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
+/*used to highlight a word*/
 .highlight {
   font-weight: bold;
   font-family: 'Caveat', cursive;
@@ -25,6 +26,7 @@
   color: red;
 }
 
+/*What size we write in*/
 .intro-text {
   font-size: 1.1rem;
   margin: 0.5rem 0 0;

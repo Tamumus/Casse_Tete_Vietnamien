@@ -7,38 +7,10 @@ import { GameDisplayComponent } from './game-display/game-display';
   standalone: true,
   imports: [CommonModule, GameDisplayComponent],
   styleUrls: ['app.component.css'],
-  //background will be the..background, stickers the interactive tiles, comibinations are a WIP while I code
+  //just call the component that handles display
   template: `
- <app-game-display></app-game-display>
-    <!-- <div class="combinations">
-      <div *ngIf="combinations.length > 0; else noData">
-        <h2>Combinaisons :</h2>
-        <ul>
-          <li *ngFor="let combo of combinations">
-            ID {{ combo.id }} : {{ combo.numberList.join(', ') }}
-          </li>
-        </ul>
-      </div>
-      <ng-template #noData>
-        <p>Aucune combinaison trouvée.</p>
-      </ng-template>
-    </div>
-
-  <button class="button" (click)="generateNewCombination()">➕ Générer</button> -->
-
+  <app-game-display></app-game-display> 
   `
 })
 export class AppComponent {
-  combinations: { id?: number; numberList: number[] }[] = [];
-
-  // constructor(private combinationService: CombinationService) {}
-
-  ngOnInit(): void {
-    // this.combinationService.getCombinations().subscribe((data: Combination[]) => {
-    //   this.combinations = data.map(c => ({
-    //     id: c.id,
-    //     numberList: typeof c.numbers === 'string'
-    //       ? c.numbers.split(',').map(Number)
-    //       : []
-  }
 }

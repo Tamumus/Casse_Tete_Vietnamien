@@ -1,10 +1,12 @@
+/*what contains the stickers + text, will be expanded to active when selected*/
 .sticker-container {
-  position: relative; /* Très important pour que stickers soient positionnés par rapport à ce conteneur */
+  position: relative; 
   width: 100%;
   height: 100%;
-  user-select: none; /* évite la sélection de texte lors du drag */
+  user-select: none; /* so you can't grab the text away */
 }
 
+/*the sticker image + border, clickable*/
 .sticker {
   position: absolute;
   z-index: 3;
@@ -20,15 +22,17 @@
   transition: box-shadow 0.2s ease;
 }
 
+/*does that when hovering/dragging a sticker*/
 .sticker.active {
   box-shadow: 0 0 60px 10px rgb(0, 0, 0) !important;
-  cursor: grabbing;
+  cursor: grabbing; /*clickable*/
   z-index: 1000;
 }
 
+/*the text in the sticker (int between 1 and 9*/
 .sticker-value {
   position: absolute;
-  pointer-events: none; /* laisse passer les clics à l’image/sticker */
+  pointer-events: none; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

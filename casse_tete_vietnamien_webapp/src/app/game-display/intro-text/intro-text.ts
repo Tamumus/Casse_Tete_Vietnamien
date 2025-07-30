@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './intro-text.css'
 })
 export class IntroText {
-
+ //empty export. this is just so the game display can access the html and css
 }

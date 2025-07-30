@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { StickerData } from './sticker';
 import { Zone } from './interactive-zone';
 import { ZoneUtils } from './interactive-zone_util';
-import { StickerDragService } from '../services/moovements/sticker-drag.service';
+import { StickerDragService } from '../services/stickers/sticker-drag.service';
 
 //This is where we create the sticker and all they need to work as intended
 @Component({

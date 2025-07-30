@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TitleComponent } from './title/title-component';
 import { IntroText } from './intro-text/intro-text';
-import { StickerComponent } from "./sticker/sticker_component";
+import { StickerComponent } from './sticker/sticker_component';
 import { GameboardComponent } from './gameboard/gameboard_component';
 import { CombinationDisplayComponent } from '../combination-display/combination-display.component';
 import { ZoneUtils } from './sticker/interactive-zone_util';
@@ -49,12 +49,12 @@ export class GameDisplayComponent implements OnInit, OnDestroy {
       }
     })
     //Listen for the cheatservice to tell us what to draw attention to
-  this.cheatSub = this.cheatService.suggestedZone$.subscribe((zoneIndex) => {
-    console.log('Nouvelle zone suggérée reçue dans GameDisplayComponent:', zoneIndex);
-    if (zoneIndex !== null) {
-      this.blinkZone(zoneIndex);
-    }
-  });
+    this.cheatSub = this.cheatService.suggestedZone$.subscribe((zoneIndex) => {
+      console.log('Nouvelle zone suggérée reçue dans GameDisplayComponent:', zoneIndex);
+      if (zoneIndex !== null) {
+        this.blinkZone(zoneIndex);
+      }
+    });
     this.setBoardDimensions();
     this.calculateOffsets();
 
@@ -79,7 +79,6 @@ export class GameDisplayComponent implements OnInit, OnDestroy {
     this.boardWidth = Math.floor(screenWidth * 0.4);  // 40% of screen width
     this.boardHeight = Math.floor(screenHeight * 0.35); // 35% of screen height
 
-    // Optionnel : un facteur d’échelle en fonction du spacing d'origine (100)
     this.scaleFactor = 1;//this.boardWidth / (7 * 100); // pour une grille de 7 colonnes
   }
 
